@@ -1,0 +1,13 @@
+{
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node",
+      "config": {
+        "installCommand": "npm i -g pnpm@8.10.0 && pnpm install --no-frozen-lockfile",
+        "buildCommand": "pnpm build",
+        "framework": "nextjs"
+      }
+    }
+  ]
+}
