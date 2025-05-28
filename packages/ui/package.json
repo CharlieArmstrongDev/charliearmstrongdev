@@ -1,0 +1,21 @@
+{
+  "name": "@charliearmstrongdev/ui",
+  "version": "1.0.0",
+  "private": true,
+  "main": "components/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.0",
+    "jest": "^27.0.0",
+    "ts-jest": "^27.0.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
+  },
+  "dependencies": {
+    "clsx": "^1.1.1",
+    "tailwindcss": "^2.2.19"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "charliearmstrongdev",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "jest",
+    "cypress": "cypress open"
+  },
+  "dependencies": {
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwindcss": "latest",
+    "@trpc/client": "latest",
+    "@trpc/server": "latest",
+    "react-query": "latest",
+    "clerk-sdk": "latest",
+    "sentry": "latest",
+    "logrocket": "latest",
+    "vercel": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "eslint": "latest",
+    "prettier": "latest",
+    "jest": "latest",
+    "react-testing-library": "latest",
+    "cypress": "latest",
+    "postcss": "latest",
+    "autoprefixer": "latest",
+    "tailwindcss": "latest"
+  }
+}
