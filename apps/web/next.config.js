@@ -1,15 +1,14 @@
-// Updated to use the correct Clerk import path for v5+ of @clerk/nextjs
-const { withClerk } = require('@clerk/nextjs');
-
-module.exports = withClerk({
+// No need for withClerk in Clerk v5+ - it's been removed
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   images: {
     domains: ['your-image-domain.com'], // Replace with your image domains
   },
   experimental: {
-    appDir: true,
-    serverActions: true,
+    serverActions: {
+      allowedOrigins: ["localhost:3000", "*.vercel.app"]
+    }
   },
   async redirects() {
     return [
@@ -28,4 +27,6 @@ module.exports = withClerk({
       },
     ];
   },
-});
+};
+
+module.exports = nextConfig;

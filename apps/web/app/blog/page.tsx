@@ -1,20 +1,40 @@
 import React from 'react';
-import { useQuery } from 'react-query';
-import { getBlogPosts } from '../../lib/api'; // Adjust the import based on your API structure
-import PostCard from '../../components/domain/blog/post-card';
+import PostCard from '@/components/domain/blog/post-card';
 
-const BlogPage = () => {
-  const { data: posts, isLoading, error } = useQuery('blogPosts', getBlogPosts);
+// Mock data for now since we don't have the actual API
+const getBlogPosts = async () => {
+  // Mock implementation - replace with actual data fetching
+  return [
+    { 
+      slug: 'first-post', 
+      title: 'First Blog Post', 
+      excerpt: 'This is my first blog post excerpt.',
+      date: '2025-05-28'
+    },
+    { 
+      slug: 'second-post', 
+      title: 'Second Blog Post', 
+      excerpt: 'This is my second blog post excerpt.',
+      date: '2025-05-27'
+    }
+  ];
+};
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading blog posts</div>;
+const BlogPage = async () => {
+  const posts = await getBlogPosts();
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold mb-4">Blog</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {posts.map((post) => (
-          <PostCard key={post.slug} post={post} />
+          <PostCard 
+            key={post.slug} 
+            title={post.title}
+            excerpt={post.excerpt}
+            slug={post.slug}
+            date={post.date}
+          />
         ))}
       </div>
     </div>

@@ -2,11 +2,15 @@
   "name": "@charliearmstrongdev/tsconfig",
   "version": "1.0.0",
   "private": true,
-  "main": "index.js",
+  "files": [
+    "base.json",
+    "nextjs.json",
+    "react-library.json"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "echo 'TypeScript config package - no build needed'"
   },
   "devDependencies": {
-    "typescript": "^4.5.0"
+    "typescript": "^5.7.3"
   }
 }

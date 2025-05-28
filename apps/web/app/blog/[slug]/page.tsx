@@ -1,43 +1,35 @@
-import { GetStaticProps, GetStaticPaths } from 'next';
-import { getPostBySlug, getAllPosts } from '@/lib/db/kv';
-import { Post } from '@/types/post'; // Assuming you have a Post type defined
+import React from 'react';
+import { notFound } from 'next/navigation';
+
+// Mock data for now since we don't have the actual lib files
+const getPostBySlug = async (slug: string) => {
+  // Mock implementation - replace with actual data fetching
+  const mockPosts = [
+    { slug: 'first-post', title: 'First Blog Post', content: 'This is my first blog post.' },
+    { slug: 'second-post', title: 'Second Blog Post', content: 'This is my second blog post.' }
+  ];
+  
+  return mockPosts.find(post => post.slug === slug) || null;
+};
 
 interface BlogPostProps {
-  post: Post | null;
+  params: Promise<{ slug: string }>;
 }
 
-const BlogPostPage: React.FC<BlogPostProps> = ({ post }) => {
+const BlogPostPage: React.FC<BlogPostProps> = async ({ params }) => {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+
   if (!post) {
-    return <div>Post not found</div>;
+    notFound();
   }
 
   return (
-    <article>
-      <h1 className="text-3xl font-bold">{post.title}</h1>
-      <div className="mt-4">{post.content}</div>
+    <article className="max-w-4xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+      <div className="prose prose-lg">{post.content}</div>
     </article>
   );
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getAllPosts();
-  const paths = posts.map((post) => ({
-    params: { slug: post.slug },
-  }));
-
-  return { paths, fallback: 'blocking' };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { slug } = params as { slug: string };
-  const post = await getPostBySlug(slug);
-
-  return {
-    props: {
-      post,
-    },
-    revalidate: 10, // ISR: Revalidate every 10 seconds
-  };
 };
 
 export default BlogPostPage;
