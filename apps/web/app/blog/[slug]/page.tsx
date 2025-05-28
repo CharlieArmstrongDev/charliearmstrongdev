@@ -5,10 +5,18 @@ import { notFound } from 'next/navigation';
 const getPostBySlug = async (slug: string) => {
   // Mock implementation - replace with actual data fetching
   const mockPosts = [
-    { slug: 'first-post', title: 'First Blog Post', content: 'This is my first blog post.' },
-    { slug: 'second-post', title: 'Second Blog Post', content: 'This is my second blog post.' }
+    {
+      slug: 'first-post',
+      title: 'First Blog Post',
+      content: 'This is my first blog post.',
+    },
+    {
+      slug: 'second-post',
+      title: 'Second Blog Post',
+      content: 'This is my second blog post.',
+    },
   ];
-  
+
   return mockPosts.find(post => post.slug === slug) || null;
 };
 
@@ -25,8 +33,8 @@ const BlogPostPage: React.FC<BlogPostProps> = async ({ params }) => {
   }
 
   return (
-    <article className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-4">{post.title}</h1>
+    <article className="mx-auto max-w-4xl px-4 py-8">
+      <h1 className="mb-4 text-3xl font-bold">{post.title}</h1>
       <div className="prose prose-lg">{post.content}</div>
     </article>
   );

@@ -10,7 +10,7 @@ Generic components allow for the creation of reusable components that can work w
 
 ```tsx
 // A generic Button component
-import React from 'react';
+import React from "react";
 
 type ButtonProps<T> = {
   onClick: (value: T) => void;
@@ -19,11 +19,7 @@ type ButtonProps<T> = {
 };
 
 const Button = <T,>({ onClick, label, value }: ButtonProps<T>) => {
-  return (
-    <button onClick={() => onClick(value)}>
-      {label}
-    </button>
-  );
+  return <button onClick={() => onClick(value)}>{label}</button>;
 };
 
 export default Button;
@@ -42,7 +38,7 @@ type User = {
   email: string;
 };
 
-type UserPreview = Pick<User, 'id' | 'name'>; // Only includes id and name
+type UserPreview = Pick<User, "id" | "name">; // Only includes id and name
 ```
 
 ## 3. Discriminated Unions
@@ -52,19 +48,19 @@ Discriminated unions allow for the creation of types that can represent multiple
 ### Example
 
 ```ts
-type LoadingState = { status: 'loading' };
-type SuccessState = { status: 'success'; data: string };
-type ErrorState = { status: 'error'; error: string };
+type LoadingState = { status: "loading" };
+type SuccessState = { status: "success"; data: string };
+type ErrorState = { status: "error"; error: string };
 
 type State = LoadingState | SuccessState | ErrorState;
 
 const handleState = (state: State) => {
   switch (state.status) {
-    case 'loading':
-      return 'Loading...';
-    case 'success':
+    case "loading":
+      return "Loading...";
+    case "success":
       return `Data: ${state.data}`;
-    case 'error':
+    case "error":
       return `Error: ${state.error}`;
   }
 };
@@ -78,11 +74,11 @@ TypeScript's type inference can be leveraged to create more flexible and type-sa
 
 ```ts
 function createApi<T>(endpoint: string): Promise<T> {
-  return fetch(endpoint).then(response => response.json());
+  return fetch(endpoint).then((response) => response.json());
 }
 
 // Usage
-createApi<User>('https://api.example.com/user').then(user => {
+createApi<User>("https://api.example.com/user").then((user) => {
   console.log(user.name);
 });
 ```
@@ -95,10 +91,10 @@ Type guards are functions that allow you to narrow down the type of a variable w
 
 ```ts
 function isError(state: State): state is ErrorState {
-  return state.status === 'error';
+  return state.status === "error";
 }
 
-const state: State = { status: 'error', error: 'Not found' };
+const state: State = { status: "error", error: "Not found" };
 
 if (isError(state)) {
   console.error(state.error); // TypeScript knows state is ErrorState here

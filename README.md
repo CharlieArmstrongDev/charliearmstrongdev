@@ -1,6 +1,6 @@
 # CharlieArmstrongDev
 
-This repository contains the code for charliearmstrongdev, built with Next.js, TypeScript, and React. The website serves as a portfolio to showcase my skills, projects, and experiences as a web developer. 
+This repository contains the code for charliearmstrongdev, built with Next.js, TypeScript, and React. The website serves as a portfolio to showcase my skills, projects, and experiences as a web developer.
 
 ## Tech Stack
 
@@ -34,29 +34,33 @@ This repository contains the code for charliearmstrongdev, built with Next.js, T
 To get started with the project, follow these steps:
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/yourusername/charliearmstrongdev.git
    cd charliearmstrongdev
    ```
 
 2. **Install dependencies**:
+
    ```bash
    # Requires pnpm v10.11.0 or higher
    pnpm install
    ```
 
 3. **Environment Setup**:
+
    ```bash
    # Copy the example env file and update with your values
    cp .env.example .env.local
    ```
 
-3. **Run the development server**:
+4. **Run the development server**:
+
    ```bash
    pnpm dev
    ```
 
-4. **Open your browser** and navigate to `http://localhost:3000`.
+5. **Open your browser** and navigate to `http://localhost:3000`.
 
 ## Documentation
 

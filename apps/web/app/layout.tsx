@@ -5,7 +5,8 @@ import '../styles/globals.css';
 
 export const metadata = {
   title: 'Charlie Armstrong - CharlieArmstrongDev',
-  description: 'Charlie Armstrong\'s professional portfolio and developer website.',
+  description:
+    "Charlie Armstrong's professional portfolio and developer website.",
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -14,13 +15,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <body>
         <ClerkProvider>
           <TRPCProvider>
-            <div className="flex flex-col min-h-screen">
+            <div className="flex min-h-screen flex-col">
               <header>
                 {/* Header component can be imported and used here */}
               </header>
-              <main className="flex-grow">
-                {children}
-              </main>
+              <main className="grow">{children}</main>
               <footer>
                 {/* Footer component can be imported and used here */}
               </footer>

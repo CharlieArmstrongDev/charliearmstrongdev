@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-const isPublicRoute = createRouteMatcher(["/", "/blog(.*)", "/projects(.*)"]);
+const isPublicRoute = createRouteMatcher(['/', '/blog(.*)', '/projects(.*)']);
 
 export default clerkMiddleware((auth, req) => {
   // Handle custom redirect logic
@@ -10,7 +10,7 @@ export default clerkMiddleware((auth, req) => {
     signInUrl.searchParams.set('redirect_url', req.url);
     return NextResponse.redirect(signInUrl);
   }
-  
+
   return NextResponse.next();
 });
 

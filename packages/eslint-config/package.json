@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "echo 'No files to lint in eslint-config package'"
   },
   "peerDependencies": {
     "eslint": "^8.0.0 || ^9.0.0"

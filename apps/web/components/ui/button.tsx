@@ -12,7 +12,8 @@ const Button: React.FC<ButtonProps> = ({
   children,
   ...props
 }) => {
-  const baseStyles = 'rounded focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseStyles =
+    'rounded focus:outline-none focus:ring-2 focus:ring-offset-2';
   const variantStyles = {
     primary: 'bg-blue-600 text-white hover:bg-blue-700',
     secondary: 'bg-gray-600 text-white hover:bg-gray-700',

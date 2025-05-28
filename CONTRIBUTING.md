@@ -7,17 +7,20 @@ Thank you for your interest in contributing to CharlieArmstrongDev! This documen
 1. **Fork the Repository**: Start by forking the repository to your GitHub account.
 
 2. **Clone your Fork**: Clone your fork to your local machine.
+
    ```bash
    git clone https://github.com/YOUR-USERNAME/charliearmstrongdev.git
    cd charliearmstrongdev
    ```
 
 3. **Install Dependencies**: Install the project dependencies.
+
    ```bash
    pnpm install
    ```
 
 4. **Create a Branch**: Create a new branch for your feature or bugfix.
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
@@ -25,21 +28,25 @@ Thank you for your interest in contributing to CharlieArmstrongDev! This documen
 5. **Make Changes**: Make your changes to the codebase.
 
 6. **Test Your Changes**: Ensure that your changes pass all tests.
+
    ```bash
    pnpm test
    ```
 
 7. **Lint Your Code**: Run the linter to ensure your code follows our style guide.
+
    ```bash
    pnpm lint
    ```
 
 8. **Commit Your Changes**: Commit your changes with a descriptive commit message.
+
    ```bash
    git commit -m "feat: add new feature"
    ```
 
 9. **Push Your Changes**: Push your changes to your fork.
+
    ```bash
    git push origin feature/your-feature-name
    ```

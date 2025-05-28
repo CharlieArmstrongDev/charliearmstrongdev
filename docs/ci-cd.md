@@ -22,7 +22,7 @@ on:
   push:
     branches:
       - main
-      - 'feature/*'
+      - "feature/*"
   pull_request:
     branches:
       - main
@@ -38,7 +38,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Install dependencies
         run: pnpm install

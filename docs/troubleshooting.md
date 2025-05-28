@@ -7,6 +7,7 @@ This document provides solutions for common issues encountered during developmen
 ### Clerk API Path Not Exported Error
 
 **Error Message:**
+
 ```
 ⨯ Failed to load next.config.js
 [Error: Package subpath './api' is not defined by "exports" in /vercel/path0/node_modules/@clerk/nextjs/package.json] {
@@ -19,10 +20,10 @@ Update the import in `next.config.js` from `@clerk/nextjs/api` to `@clerk/nextjs
 
 ```javascript
 // Incorrect
-const { withClerk } = require('@clerk/nextjs/api');
+const { withClerk } = require("@clerk/nextjs/api");
 
 // Correct
-const { withClerk } = require('@clerk/nextjs');
+const { withClerk } = require("@clerk/nextjs");
 ```
 
 This change is necessary because newer versions of `@clerk/nextjs` (v5+) have changed their export structure.
@@ -30,11 +31,13 @@ This change is necessary because newer versions of `@clerk/nextjs` (v5+) have ch
 ### PNPM Installation Errors (ERR_INVALID_THIS)
 
 **Error Message:**
+
 ```
 ERR_PNPM_META_FETCH_FAIL GET https://registry.npmjs.org/typescript: Value of "this" must be of type URLSearchParams
 ```
 
 **Solution:**
+
 1. Use a specific version of PNPM with Vercel (v8.10.0 works well)
 2. Configure your `vercel.json`:
 
@@ -47,6 +50,7 @@ ERR_PNPM_META_FETCH_FAIL GET https://registry.npmjs.org/typescript: Value of "th
 ```
 
 3. Add a `.npmrc` file with these settings:
+
 ```
 registry=https://registry.npmjs.org/
 node-linker=hoisted
@@ -77,6 +81,7 @@ Use PNPM overrides in your root `package.json`:
 **Issue:** TypeScript or ESLint errors preventing build completion.
 
 **Solution:**
+
 1. Run `pnpm lint --fix` to fix auto-fixable issues
 2. Check that TypeScript version is compatible with Next.js version
 3. Ensure all imports use the correct paths as specified in documentation
@@ -88,6 +93,7 @@ Use PNPM overrides in your root `package.json`:
 **Issue:** First page load is slow due to large JavaScript bundles.
 
 **Solution:**
+
 1. Implement code splitting with dynamic imports
 2. Enable server components where appropriate
 3. Use next/image with proper optimization settings
@@ -100,6 +106,7 @@ Use PNPM overrides in your root `package.json`:
 **Issue:** Authentication not working as expected.
 
 **Solution:**
+
 1. Verify environment variables are set correctly
 2. Make sure middleware is properly configured
 3. Check Clerk dashboard for API key status

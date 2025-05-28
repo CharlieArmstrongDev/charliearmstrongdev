@@ -17,15 +17,14 @@ export const appRouter = router({
         greeting: `Hello ${input.name}!`,
       };
     }),
-  
-  posts: publicProcedure
-    .query(async () => {
-      // Mock data - replace with actual database calls
-      return [
-        { id: 1, title: 'First Post', content: 'Hello World!' },
-        { id: 2, title: 'Second Post', content: 'This is the second post.' },
-      ];
-    }),
+
+  posts: publicProcedure.query(async () => {
+    // Mock data - replace with actual database calls
+    return [
+      { id: 1, title: 'First Post', content: 'Hello World!' },
+      { id: 2, title: 'Second Post', content: 'This is the second post.' },
+    ];
+  }),
 });
 
 export type AppRouter = typeof appRouter;
