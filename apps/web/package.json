@@ -11,27 +11,27 @@
     "cypress": "cypress open"
   },
   "dependencies": {
-    "next": "latest",
-    "react": "latest",
-    "react-dom": "latest",
-    "tailwindcss": "latest",
+    "@clerk/nextjs": "latest",
+    "@sentry/nextjs": "^9.23.0",
+    "@tanstack/react-query": "^5.77.2",
+    "@testing-library/react": "^16.3.0",
     "@trpc/client": "latest",
     "@trpc/server": "latest",
-    "react-query": "latest",
-    "clerk-sdk": "latest",
-    "sentry": "latest",
     "logrocket": "latest",
+    "next": "15.3.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tailwindcss": "latest",
     "vercel": "latest"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "eslint": "latest",
-    "prettier": "latest",
-    "jest": "latest",
-    "react-testing-library": "latest",
-    "cypress": "latest",
-    "postcss": "latest",
     "autoprefixer": "latest",
-    "tailwindcss": "latest"
+    "cypress": "latest",
+    "eslint": "latest",
+    "jest": "latest",
+    "postcss": "latest",
+    "prettier": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
   }
 }

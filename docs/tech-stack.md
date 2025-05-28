@@ -26,6 +26,7 @@ This document outlines the technology stack used in the charliearmstrongdev proj
 - **Next/Image**: A built-in image optimization component in Next.js that automatically optimizes images for faster loading times.
 - **Dynamic Imports**: Used for loading heavy components only when needed, improving initial load performance.
 - **Vercel Analytics**: Integrated for performance monitoring and insights into user interactions.
+- **Optimized Dependencies**: Using latest versions of critical dependencies (esbuild v0.25.5, undici v7.10.0) to ensure security and performance.
 
 ## Development Tools
 
@@ -35,6 +36,8 @@ This document outlines the technology stack used in the charliearmstrongdev proj
 - **Jest**: A testing framework for unit testing React components and other JavaScript code.
 - **React Testing Library**: A library for testing React components in a way that resembles how users interact with them.
 - **Cypress**: An end-to-end testing framework that allows for testing the entire application in a real browser environment.
+- **esbuild**: High-performance JavaScript bundler (v0.25.5) for faster builds.
+- **undici**: Modern HTTP client (v7.10.0) used as a dependency for various network operations.
 
 ## CI/CD
 

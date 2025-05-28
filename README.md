@@ -10,12 +10,14 @@ This repository contains the code for charliearmstrongdev, built with Next.js, T
 - **Tailwind CSS**: A utility-first CSS framework for styling.
 - **ShadCN**: A component library for building UI with Tailwind CSS.
 - **tRPC**: A framework for building type-safe APIs.
-- **React Query**: For data fetching and state management.
-- **Clerk**: For user authentication.
+- **React Query**: For data fetching and state management (@tanstack/react-query v5.77.2).
+- **Clerk**: For user authentication (@clerk/nextjs).
 - **Vercel KV**: For database solutions.
+- **pnpm**: Package manager (v10.11.0) for dependency management.
 - **Cypress**: For end-to-end testing.
 - **Jest**: For unit testing.
-- **Sentry/LogRocket**: For logging and monitoring.
+- **Sentry**: For error tracking and performance monitoring (@sentry/nextjs v9.23.0).
+- **LogRocket**: For session replay and logging.
 
 ## Features
 
@@ -25,19 +27,28 @@ This repository contains the code for charliearmstrongdev, built with Next.js, T
 - **Dynamic Imports**: Heavy components are loaded dynamically to improve initial load times.
 - **Service Worker**: Implemented for offline capabilities.
 - **CI/CD**: Continuous integration and deployment workflows are set up using GitHub Actions.
+- **Optimized Dependencies**: Critical dependencies are version-pinned and overridden for security and performance.
 
 ## Getting Started
 
 To get started with the project, follow these steps:
 
 1. **Clone the repository**:
-   ```bash  git clone https://github.com/yourusername/charliearmstrongdev.git
-  cd charliearmstrongdev
+   ```bash
+   git clone https://github.com/yourusername/charliearmstrongdev.git
+   cd charliearmstrongdev
    ```
 
 2. **Install dependencies**:
    ```bash
+   # Requires pnpm v10.11.0 or higher
    pnpm install
+   ```
+
+3. **Environment Setup**:
+   ```bash
+   # Copy the example env file and update with your values
+   cp .env.example .env.local
    ```
 
 3. **Run the development server**:
@@ -67,3 +78,22 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Dependency Management
+
+This project uses pnpm (v10.11.0) for dependency management in a monorepo structure. Key aspects of dependency management include:
+
+- **Monorepo Structure**: Using workspaces for apps and shared packages
+- **Dependency Overrides**: Critical dependencies like esbuild (v0.25.5) and undici (v7.10.0) are overridden at the root level
+- **Security Patching**: Automatically applies security patches through overrides
+- **Version Control**: Specific versions are pinned for core dependencies to ensure stability
+
+To update dependencies:
+
+```bash
+# Check for outdated packages
+pnpm outdated
+
+# Update packages safely
+pnpm update --interactive
+```

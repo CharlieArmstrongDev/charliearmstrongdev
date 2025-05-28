@@ -29,6 +29,10 @@ This document outlines the performance optimizations implemented in the charliea
 8. **Edge Caching**:
    - Leverage Vercel's edge caching capabilities to cache responses at the edge, reducing latency for users by serving content closer to their location.
 
+9. **Dependency Optimization**:
+   - Utilize optimized versions of critical dependencies including esbuild (v0.25.5) for faster builds and undici (v7.10.0) for improved HTTP requests.
+   - Apply overrides for common dependencies to ensure security patches and performance improvements.
+
 ## Performance Monitoring
 
 1. **Vercel Analytics**:

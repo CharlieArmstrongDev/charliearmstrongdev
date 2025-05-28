@@ -14,11 +14,22 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
   },
   "devDependencies": {
+    "esbuild": "^0.25.5",
     "prettier": "latest",
-    "turbo": "latest"
+    "turbo": "latest",
+    "undici": "^7.10.0"
   },
   "engines": {
     "node": ">=16.0.0"
   },
-  "packageManager": "pnpm@8.x"
+  "packageManager": "pnpm@10.11.0",
+  "pnpm": {
+    "overrides": {
+      "esbuild": "^0.25.5",
+      "undici": "^7.10.0",
+      "glob": "^8.1.0",
+      "rimraf": "^5.0.0",
+      "abab": "^2.0.6"
+    }
+  }
 }
