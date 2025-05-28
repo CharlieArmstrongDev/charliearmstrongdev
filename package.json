@@ -30,6 +30,10 @@
       "glob": "^8.1.0",
       "rimraf": "^5.0.0",
       "abab": "^2.0.6"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@clerk/shared",
+      "cypress"
+    ]
   }
 }
