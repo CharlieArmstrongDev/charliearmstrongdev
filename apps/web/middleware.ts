@@ -1,21 +1,20 @@
 import { NextResponse } from 'next/server';
-import { getAuth } from '@clerk/nextjs/server';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-export async function middleware(req) {
-  const { userId } = getAuth(req);
+const isPublicRoute = createRouteMatcher(["/", "/blog(.*)", "/projects(.*)"]);
 
-  // Check if the user is authenticated
-  if (!userId) {
-    // Redirect to sign-in page if not authenticated
-    return NextResponse.redirect(new URL('/auth/sign-in', req.url));
+export default clerkMiddleware((auth, req) => {
+  // Handle custom redirect logic
+  if (!auth().userId && !isPublicRoute(req)) {
+    const signInUrl = new URL('/auth/sign-in', req.url);
+    signInUrl.searchParams.set('redirect_url', req.url);
+    return NextResponse.redirect(signInUrl);
   }
-
-  // Add additional middleware logic here (e.g., A/B testing, internationalization)
-
+  
   return NextResponse.next();
-}
+});
 
 // Define the config for the middleware
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'], // Apply middleware to all routes except API and static files
+  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };

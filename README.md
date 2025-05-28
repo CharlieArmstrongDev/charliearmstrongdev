@@ -70,6 +70,7 @@ Comprehensive documentation is available in the `docs` directory, covering:
 - [Rendering Strategies](docs/rendering-strategies.md)
 - [Tech Stack](docs/tech-stack.md)
 - [Advanced TypeScript Usage](docs/typescript.md)
+- [Troubleshooting Guide](docs/troubleshooting.md)
 
 ## Contributing
 

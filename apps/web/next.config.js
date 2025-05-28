@@ -1,4 +1,5 @@
-const { withClerk } = require('@clerk/nextjs/api');
+// Updated to use the correct Clerk import path for v5+ of @clerk/nextjs
+const { withClerk } = require('@clerk/nextjs');
 
 module.exports = withClerk({
   reactStrictMode: true,
