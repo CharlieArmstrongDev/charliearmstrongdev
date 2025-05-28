@@ -57,13 +57,42 @@ jobs:
 
 The CD workflow is defined in the `.github/workflows/deploy.yml` file. This workflow is triggered on successful merges to the main branch. It handles both preview and production deployments.
 
-### Preview Deployments
+### Vercel Deployment
 
-Preview deployments are created for pull requests to allow for testing and review before merging. The deployment is done using Vercel's platform features.
+The project uses Vercel for continuous deployment with the following configuration:
 
-### Production Deployments
+1. **GitHub Integration**: The repository is connected to Vercel for automated deployments.
+2. **Environment Variables**: All necessary environment variables are configured in the Vercel project settings.
+3. **Custom Install Command**: To handle pnpm compatibility issues, we use a custom install command:
 
-Production deployments are triggered after merging to the main branch. The workflow ensures that the latest changes are deployed to the live site.
+   ```
+   npm i -g pnpm@8.10.0 && pnpm install --no-frozen-lockfile
+   ```
+
+4. **Build Configuration**: The build is configured in `vercel.json` to ensure consistent deployment:
+
+   ```json
+   {
+     "buildCommand": "pnpm build",
+     "installCommand": "npm i -g pnpm@8.10.0 && pnpm install --no-frozen-lockfile",
+     "framework": "nextjs"
+   }
+   ```
+
+### Deployment Environments
+
+The project has three deployment environments:
+
+1. **Production**: Deployed from the `main` branch.
+2. **Preview**: Automatically deployed for pull requests for testing before merging.
+3. **Development**: Used for testing features in isolation.
+
+### Troubleshooting Common Deployment Issues
+
+1. **pnpm Compatibility**: Using pnpm@8.10.0 on Vercel to avoid "ERR_INVALID_THIS" errors
+2. **Package Path Errors**: Ensure packages are properly exported in the package.json
+3. **Environment Variables**: Verify all required environment variables are set in Vercel project settings
+4. **Build Caching**: Clear deployment cache if experiencing persistent build issues
 
 ### Example CD Workflow (deploy.yml)
 

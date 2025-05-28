@@ -18,6 +18,7 @@ For core dependencies that affect application stability, we use exact or caret-l
 
 - **React**: v18.2.0 (exact version)
 - **Next.js**: v15.3.2 (exact version)
+- **@clerk/nextjs**: ^5.0.0 (major version locked)
 - **React Query**: ^5.77.2 (major version locked)
 - **Sentry**: ^9.23.0 (major version locked)
 
@@ -49,45 +50,46 @@ The project uses pnpm's overrides feature to enforce specific versions of critic
 
 This ensures that even transitive dependencies are kept at secure and performant versions.
 
-### Upgrade Procedures
+## Vercel Deployment Configuration
 
-Regular dependency maintenance follows these steps:
+To ensure smooth deployments on Vercel with pnpm, we've implemented the following configurations:
 
-1. **Weekly Security Audits**:
-   ```bash
-   pnpm audit
-   ```
+### vercel.json Configuration
 
-2. **Monthly Dependency Reviews**:
-   ```bash
-   pnpm outdated
-   ```
-   
-3. **Selective Updates**:
-   ```bash
-   pnpm update --interactive
-   ```
+A custom `vercel.json` file is used to control the build process:
 
-4. **Full Verification After Updates**:
-   ```bash
-   pnpm test && pnpm lint && pnpm build
-   ```
+```json
+{
+  "buildCommand": "pnpm build",
+  "installCommand": "npm i -g pnpm@8.10.0 && pnpm install --no-frozen-lockfile",
+  "framework": "nextjs"
+}
+```
 
-## Troubleshooting Common Dependency Issues
+### Package Manager Version
 
-### Resolving Peer Dependency Warnings
+For Vercel compatibility, we use pnpm v8.10.0 during deployment, while local development uses pnpm v10.11.0. This dual configuration helps avoid "ERR_INVALID_THIS" errors that can occur with the newest pnpm versions in the Vercel environment.
 
-If you encounter peer dependency warnings, first check if they affect functionality. Non-critical warnings can be addressed by adding appropriate versions to the overrides section.
+### Troubleshooting Dependencies
 
-### Handling Deprecated Packages
+Common issues and their solutions:
 
-When packages are deprecated:
-1. Check for recommended replacements in the warning messages
-2. Update the package to the recommended alternative
-3. Update all imports and usages throughout the codebase
+1. **ERR_PNPM_FETCH_404**: Check for nonexistent or mistyped package names
+2. **ERR_INVALID_THIS**: Use pnpm v8.x in Vercel environments
+3. **Dependencies with "latest" versioning**: Pin dependencies to specific versions when deploying to production
 
-## Monitoring and Automation
+To debug dependency issues:
 
-- **Dependabot**: Configured to automatically open PRs for security updates
-- **Continuous Integration**: All PRs are tested to ensure dependency changes don't break functionality
-- **Package Health Tracking**: Regular checks on dependency health and maintenance status
+```bash
+# View dependency tree
+pnpm list --depth=1
+
+# Check for specific warnings or issues
+pnpm why <package-name>
+```
+
+## Maintenance Schedule
+
+- **Weekly**: Check for security updates
+- **Monthly**: Audit dependencies with `pnpm audit`
+- **Quarterly**: Review and update major dependencies

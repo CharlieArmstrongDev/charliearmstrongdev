@@ -18,7 +18,7 @@ This document outlines the technology stack used in the charliearmstrongdev proj
 
 ## Authentication
 
-- **Clerk**: A user authentication service that simplifies the implementation of user sign-up, sign-in, and session management.
+- **Clerk**: A user authentication service (@clerk/nextjs v5.0.0) that simplifies the implementation of user sign-up, sign-in, and session management.
 
 ## Performance and Optimization
 
