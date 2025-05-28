@@ -3,6 +3,13 @@
     "declaration": true,
     "outDir": "./dist"
   },
-  "include": ["./base.json", "./nextjs.json", "./react-library.json"],
-  "exclude": ["dist", "node_modules"]
+  "include": [
+    "./base.json",
+    "./nextjs.json",
+    "./react-library.json"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
+  ]
 }
