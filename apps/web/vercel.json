@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd ../.. && npm i -g pnpm@10.11.0 && pnpm install --no-frozen-lockfile && pnpm turbo run build --filter=charliearmstrongdev",
-  "installCommand": "npm i -g pnpm@10.11.0",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "installCommand": "cd ../.. && npm i -g pnpm@10.11.0 && pnpm install --no-frozen-lockfile",
+  "buildCommand": "cd ../.. && pnpm turbo run build --filter=charliearmstrongdev"
 }
