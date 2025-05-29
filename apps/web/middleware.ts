@@ -1,17 +1,19 @@
-import { NextResponse } from 'next/server';
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-const isPublicRoute = createRouteMatcher(['/', '/blog(.*)', '/projects(.*)']);
+// Define public routes that don't require authentication
+const isPublicRoute = createRouteMatcher([
+  '/',
+  '/blog(.*)',
+  '/projects(.*)',
+  '/sign-in(.*)',
+  '/sign-up(.*)',
+]);
 
 export default clerkMiddleware((auth, req) => {
-  // Handle custom redirect logic
-  if (!auth().userId && !isPublicRoute(req)) {
-    const signInUrl = new URL('/auth/sign-in', req.url);
-    signInUrl.searchParams.set('redirect_url', req.url);
-    return NextResponse.redirect(signInUrl);
+  // Only protect routes that are NOT public
+  if (!isPublicRoute(req)) {
+    auth().protect();
   }
-
-  return NextResponse.next();
 });
 
 // Define the config for the middleware

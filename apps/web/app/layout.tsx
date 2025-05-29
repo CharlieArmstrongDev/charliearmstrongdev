@@ -11,9 +11,9 @@ export const metadata = {
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
-      <body>
-        <ClerkProvider>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
           <TRPCProvider>
             <div className="flex min-h-screen flex-col">
               <header>
@@ -25,9 +25,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
               </footer>
             </div>
           </TRPCProvider>
-        </ClerkProvider>
-      </body>
-    </html>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 };
 
