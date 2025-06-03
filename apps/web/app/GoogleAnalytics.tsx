@@ -3,7 +3,11 @@
 
 import Script from 'next/script';
 
-export default function GoogleAnalytics({ gaId = 'G-1K8GCBK9LK' }: { gaId?: string }) {
+export default function GoogleAnalytics({
+  gaId = 'G-1K8GCBK9LK',
+}: {
+  gaId?: string;
+}) {
   return (
     <>
       <Script

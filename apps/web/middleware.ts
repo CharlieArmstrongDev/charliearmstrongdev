@@ -23,5 +23,7 @@ export default clerkMiddleware((auth, req) => {
 
 // Define the config for the middleware
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|.+\\.(?:svg|ico|jpg|jpeg|png|gif|webp)|favicon.ico|sitemap.xml|robots.txt|googletagmanager\\.com).*)'],
+  matcher: [
+    '/((?!_next/static|_next/image|.+\\.(?:svg|ico|jpg|jpeg|png|gif|webp)|favicon.ico|sitemap.xml|robots.txt|googletagmanager\\.com).*)',
+  ],
 };
