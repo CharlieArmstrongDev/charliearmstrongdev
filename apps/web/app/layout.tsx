@@ -1,8 +1,8 @@
 import React from 'react';
-import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
 import { TRPCProvider } from '../lib/trpc/provider';
 import '../styles/globals.css';
+import GoogleAnalytics from './GoogleAnalytics';
 
 export const metadata = {
   title: 'Charlie Armstrong - CharlieArmstrongDev',
@@ -47,22 +47,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ClerkProvider>
       <html lang="en">
-        <head>
-          {/* Google Analytics */}
-          <Script
-            src="https://www.googletagmanager.com/gtag/js?id=G-1K8GCBK9LK"
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-1K8GCBK9LK');
-            `}
-          </Script>
-        </head>
         <body>
+          {/* Google Analytics */}
+          <GoogleAnalytics />
           <TRPCProvider>
             <div className="flex min-h-screen flex-col">
               <header>
