@@ -7,6 +7,42 @@ export const metadata = {
   title: 'Charlie Armstrong - CharlieArmstrongDev',
   description:
     "Charlie Armstrong's professional portfolio and developer website.",
+  keywords:
+    'Charlie Armstrong, web developer, portfolio, Next.js, React, TypeScript',
+  authors: [{ name: 'Charlie Armstrong' }],
+  creator: 'Charlie Armstrong',
+  publisher: 'Charlie Armstrong',
+  metadataBase: new URL('https://charliearmstrongdev.com'),
+  openGraph: {
+    title: 'Charlie Armstrong - CharlieArmstrongDev',
+    description:
+      "Charlie Armstrong's professional portfolio and developer website.",
+    url: 'https://charliearmstrongdev.com',
+    siteName: 'CharlieArmstrongDev',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Charlie Armstrong - CharlieArmstrongDev',
+    description:
+      "Charlie Armstrong's professional portfolio and developer website.",
+    creator: '@charliearmstrongdev', // Replace with your actual Twitter handle
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code', // Replace with your actual Google verification code
+  },
 };
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
