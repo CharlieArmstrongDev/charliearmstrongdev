@@ -1,5 +1,5 @@
 // Utility functions for sitemap generation
-export const baseUrl = 'https://charliearmstrongdev.com';
+export const baseUrl = 'https://charliearmstrong.dev';
 
 export interface BlogPost {
   slug: string;

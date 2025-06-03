@@ -12,12 +12,12 @@ export const metadata = {
   authors: [{ name: 'Charlie Armstrong' }],
   creator: 'Charlie Armstrong',
   publisher: 'Charlie Armstrong',
-  metadataBase: new URL('https://charliearmstrongdev.com'),
+  metadataBase: new URL('https://charliearmstrong.dev'),
   openGraph: {
     title: 'Charlie Armstrong - CharlieArmstrongDev',
     description:
       "Charlie Armstrong's professional portfolio and developer website.",
-    url: 'https://charliearmstrongdev.com',
+    url: 'https://charliearmstrong.dev',
     siteName: 'CharlieArmstrongDev',
     locale: 'en_US',
     type: 'website',
@@ -27,7 +27,7 @@ export const metadata = {
     title: 'Charlie Armstrong - CharlieArmstrongDev',
     description:
       "Charlie Armstrong's professional portfolio and developer website.",
-    creator: '@charliearmstrongdev', // Replace with your actual Twitter handle
+    creator: '@c_arm_dev',
   },
   robots: {
     index: true,
@@ -39,9 +39,6 @@ export const metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'your-google-verification-code', // Replace with your actual Google verification code
   },
 };
 
