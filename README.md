@@ -72,6 +72,7 @@ Comprehensive documentation is available in the `docs` directory, covering:
 - [Edge Functions](docs/edge-functions.md)
 - [Performance Optimizations](docs/performance.md)
 - [Rendering Strategies](docs/rendering-strategies.md)
+- [SEO and Sitemap Implementation](docs/seo-sitemap.md)
 - [Tech Stack](docs/tech-stack.md)
 - [Advanced TypeScript Usage](docs/typescript.md)
 - [Troubleshooting Guide](docs/troubleshooting.md)
