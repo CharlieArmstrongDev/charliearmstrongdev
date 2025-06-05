@@ -14,7 +14,7 @@ This document outlines the technology stack used in the charliearmstrongdev proj
 ## Backend
 
 - **tRPC**: A framework for building type-safe APIs, allowing for seamless communication between the frontend and backend while leveraging TypeScript for type safety.
-- **Vercel KV**: A key-value database solution provided by Vercel, enabling fast and scalable data storage for the application.
+- **Vercel KV (Upstash Redis)**: Serverless Redis database providing high-performance data storage with automatic scaling. Implements optimized data structures for user preferences, analytics events, blog posts, and projects with full TypeScript integration and schema validation.
 
 ## Authentication
 

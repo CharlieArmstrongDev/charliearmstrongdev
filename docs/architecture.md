@@ -40,9 +40,25 @@ The application leverages Next.js server components to fetch data directly from 
 
 The project utilizes tRPC for the API layer, implementing a backend-for-frontend pattern. This allows for type-safe API calls and improved performance by reducing the amount of data sent over the network.
 
+### Database Infrastructure
+
+The application uses **Vercel KV (Upstash Redis)** as its primary database solution, providing:
+
+- **Serverless Redis**: High-performance, auto-scaling database
+- **Data Structures**: Optimized for user preferences, analytics, blog posts, and projects
+- **Type Safety**: Full TypeScript integration with schema validation
+- **Edge Performance**: Global distribution for low-latency access
+- **tRPC Integration**: Seamless integration with the API layer
+
+Key data structures include:
+- User preferences (Redis Hash)
+- Analytics events (Redis Stream)
+- Blog posts (Redis Hash + Set for indexing)
+- Projects (Redis Hash + Set for featured projects)
+
 ### State Management
 
-React Query is used for state management in scenarios where server components cannot be utilized. A caching strategy is implemented to optimize data fetching and minimize unnecessary API calls.
+React Query is used for state management in scenarios where server components cannot be utilized. A caching strategy is implemented to optimize data fetching and minimize unnecessary API calls. The Redis database provides an additional caching layer for frequently accessed data.
 
 ### Authentication
 

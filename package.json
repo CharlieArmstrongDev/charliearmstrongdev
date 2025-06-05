@@ -11,7 +11,12 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "seed": "tsx scripts/seed-redis.ts",
+    "seed:health": "tsx scripts/seed-redis.ts health",
+    "seed:seed": "tsx scripts/seed-redis.ts seed",
+    "seed:clear": "tsx scripts/seed-redis.ts clear",
+    "seed:reset": "tsx scripts/seed-redis.ts reset"
   },
   "devDependencies": {
     "esbuild": "^0.25.5",
@@ -22,7 +27,7 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "packageManager": "pnpm@10.11.0",
+  "packageManager": "pnpm@10.11.1+sha256.211e9990148495c9fc30b7e58396f7eeda83d9243eb75407ea4f8650fb161f7c",
   "pnpm": {
     "overrides": {
       "esbuild": "^0.25.5",
@@ -33,7 +38,12 @@
     },
     "onlyBuiltDependencies": [
       "@clerk/shared",
-      "cypress"
+      "@sentry/cli",
+      "esbuild",
+      "sharp"
     ]
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0"
   }
 }

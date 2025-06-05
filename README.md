@@ -12,7 +12,7 @@ This repository contains the code for charliearmstrongdev, built with Next.js, T
 - **tRPC**: A framework for building type-safe APIs.
 - **React Query**: For data fetching and state management (@tanstack/react-query v5.77.2).
 - **Clerk**: For user authentication (@clerk/nextjs).
-- **Vercel KV**: For database solutions.
+- **Vercel KV (Upstash Redis)**: Serverless Redis database for high-performance data storage and caching.
 - **pnpm**: Package manager (v10.11.0) for dependency management.
 - **Cypress**: For end-to-end testing.
 - **Jest**: For unit testing.
@@ -21,6 +21,7 @@ This repository contains the code for charliearmstrongdev, built with Next.js, T
 
 ## Features
 
+- **Database**: Vercel KV (Upstash Redis) for user preferences, analytics, blog posts, and project data.
 - **Responsive Design**: The website is designed to be fully responsive and accessible.
 - **Server Components**: Utilizes Next.js server components for improved performance.
 - **Static Site Generation (SSG)** and **Incremental Static Regeneration (ISR)**: For optimal performance and SEO.
@@ -52,6 +53,10 @@ To get started with the project, follow these steps:
    ```bash
    # Copy the example env file and update with your values
    cp .env.example .env.local
+   
+   # Set up your Vercel KV environment variables:
+   # KV_URL, KV_REST_API_URL, KV_REST_API_TOKEN, KV_REST_API_READ_ONLY_TOKEN
+   # See VERCEL_KV_SETUP_GUIDE.md for detailed setup instructions
    ```
 
 4. **Run the development server**:
@@ -67,6 +72,7 @@ To get started with the project, follow these steps:
 Comprehensive documentation is available in the `docs` directory, covering:
 
 - [Architecture](docs/architecture.md)
+- [Database Infrastructure](docs/database.md)
 - [CI/CD Pipeline](docs/ci-cd.md)
 - [Domain Driven Design](docs/ddd.md)
 - [Edge Functions](docs/edge-functions.md)
