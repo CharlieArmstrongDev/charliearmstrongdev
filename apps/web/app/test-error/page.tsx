@@ -1,32 +1,50 @@
 'use client';
 
 import { useState } from 'react';
+import * as Sentry from '@sentry/nextjs';
 
 export default function TestErrorPage() {
   const [shouldError, setShouldError] = useState(false);
 
-  // This will trigger a client-side error
+  // This will trigger a client-side error and capture it directly with Sentry
   const triggerClientError = () => {
-    throw new Error('Test client-side error for Sentry integration');
+    try {
+      throw new Error('Test client-side error for Sentry integration');
+    } catch (error) {
+      console.error('Capturing error with Sentry:', error);
+      Sentry.captureException(error);
+      alert('Client error captured! Check your Sentry dashboard.');
+    }
+  };
+
+  // This will trigger a client-side error that should be caught by Error Boundary
+  const triggerUnhandledError = () => {
+    throw new Error('Test unhandled client-side error for Sentry integration');
   }; // This will trigger a server-side error via API route
   const triggerServerError = () => {
+    console.log('Triggering server error...');
     fetch('/api/test-error', {
       method: 'POST',
     })
       .then(response => {
+        console.log('Response status:', response.status);
         if (!response.ok) {
           console.error('Server error triggered successfully');
-          alert('Server error triggered - check your Sentry dashboard!');
+          alert(
+            'Server error triggered - check your Sentry dashboard and terminal!',
+          );
         }
       })
       .catch(error => {
         console.error('Server error triggered:', error);
-        alert('Server error triggered - check your Sentry dashboard!');
+        alert(
+          'Server error triggered - check your Sentry dashboard and terminal!',
+        );
       });
   };
 
   if (shouldError) {
-    triggerClientError();
+    triggerUnhandledError();
   }
 
   return (
@@ -39,17 +57,33 @@ export default function TestErrorPage() {
         <div className="space-y-4">
           <div>
             <h2 className="mb-2 text-lg font-semibold text-gray-800">
-              Client-Side Error Test
+              Handled Client-Side Error Test
             </h2>
             <p className="mb-3 text-sm text-gray-600">
-              This will trigger a client-side error that should be caught by the
-              ErrorBoundary and reported to Sentry.
+              This will trigger a client-side error that gets captured directly
+              by Sentry.
+            </p>
+            <button
+              onClick={triggerClientError}
+              className="w-full rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
+            >
+              Trigger Handled Client Error
+            </button>
+          </div>
+
+          <div>
+            <h2 className="mb-2 text-lg font-semibold text-gray-800">
+              Unhandled Client-Side Error Test
+            </h2>
+            <p className="mb-3 text-sm text-gray-600">
+              This will trigger an unhandled client-side error that should be
+              caught by the ErrorBoundary and reported to Sentry.
             </p>
             <button
               onClick={() => setShouldError(true)}
               className="w-full rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700"
             >
-              Trigger Client Error
+              Trigger Unhandled Client Error
             </button>
           </div>
 

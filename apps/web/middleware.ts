@@ -13,6 +13,8 @@ const isPublicRoute = createRouteMatcher([
   '/favicon.ico',
   '/manifest.json',
   '/test-error', // Keep test error page accessible for Sentry testing
+  '/api/sentry-debug', // Debug endpoint for Sentry configuration
+  '/api/test-error', // Test error API endpoint for Sentry testing
 ]);
 
 export default clerkMiddleware((auth, req) => {

@@ -53,7 +53,7 @@ To get started with the project, follow these steps:
    ```bash
    # Copy the example env file and update with your values
    cp .env.example .env.local
-   
+
    # Set up your Vercel KV environment variables:
    # KV_URL, KV_REST_API_URL, KV_REST_API_TOKEN, KV_REST_API_READ_ONLY_TOKEN
    # See VERCEL_KV_SETUP_GUIDE.md for detailed setup instructions

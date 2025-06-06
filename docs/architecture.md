@@ -51,6 +51,7 @@ The application uses **Vercel KV (Upstash Redis)** as its primary database solut
 - **tRPC Integration**: Seamless integration with the API layer
 
 Key data structures include:
+
 - User preferences (Redis Hash)
 - Analytics events (Redis Stream)
 - Blog posts (Redis Hash + Set for indexing)
