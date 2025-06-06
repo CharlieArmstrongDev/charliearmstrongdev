@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentry Client Error Test</title>
+</head>
+<body>
+    <h1>Client-Side Error Test</h1>
+    <button onclick="triggerError()">Trigger Client Error</button>
+    
+    <script>
+        function triggerError() {
+            throw new Error('Test client-side error for Sentry integration - Manual test');
+        }
+    </script>
+</body>
+</html>

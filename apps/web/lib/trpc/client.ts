@@ -11,11 +11,9 @@ export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: '/api/trpc',
-      // You can pass any HTTP headers here
-      async headers() {
-        return {
-          // authorization: getAuthCookie(),
-        };
+      // Static headers for now - can be made dynamic later if needed
+      headers: {
+        // authorization: getAuthCookie(),
       },
     }),
   ],

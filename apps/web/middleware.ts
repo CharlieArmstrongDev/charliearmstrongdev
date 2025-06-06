@@ -12,6 +12,7 @@ const isPublicRoute = createRouteMatcher([
   '/api/sitemap',
   '/favicon.ico',
   '/manifest.json',
+  '/test-error', // Keep test error page accessible for Sentry testing
 ]);
 
 export default clerkMiddleware((auth, req) => {

@@ -1,6 +1,9 @@
 import React from 'react';
 import { ClerkProvider } from '@clerk/nextjs';
 import { TRPCProvider } from '../lib/trpc/provider';
+import ErrorBoundary from '../components/ui/error-boundary';
+import Header from '../components/layout/header';
+import Footer from '../components/layout/footer';
 import '../styles/globals.css';
 import GoogleAnalytics from './GoogleAnalytics';
 
@@ -50,17 +53,15 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <body>
           {/* Google Analytics */}
           <GoogleAnalytics />
-          <TRPCProvider>
-            <div className="flex min-h-screen flex-col">
-              <header>
-                {/* Header component can be imported and used here */}
-              </header>
-              <main className="grow">{children}</main>
-              <footer>
-                {/* Footer component can be imported and used here */}
-              </footer>
-            </div>
-          </TRPCProvider>
+          <ErrorBoundary>
+            <TRPCProvider>
+              <div className="flex min-h-screen flex-col">
+                <Header />
+                <main className="grow">{children}</main>
+                <Footer />
+              </div>
+            </TRPCProvider>
+          </ErrorBoundary>
         </body>
       </html>
     </ClerkProvider>

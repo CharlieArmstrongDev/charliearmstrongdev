@@ -1,5 +1,6 @@
-import { initTRPC } from '@trpc/server';
+import { initTRPC, TRPCError } from '@trpc/server';
 import { z } from 'zod';
+import * as Sentry from '@sentry/nextjs';
 import { redis, RedisKeys, RedisUtils } from '../db/redis';
 import {
   DataSerializers,
@@ -8,12 +9,46 @@ import {
   type UserPreferences,
 } from '../db/schema';
 
-// Create tRPC instance
-const t = initTRPC.create();
+// Context type for tRPC
+type Context = {
+  userId?: string;
+};
+
+// Create tRPC instance with error handling
+const t = initTRPC.context<Context>().create({
+  errorFormatter({ shape, error }) {
+    // Log errors to Sentry
+    if (error.code !== 'BAD_REQUEST') {
+      Sentry.captureException(error.cause || error);
+    }
+
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.cause instanceof z.ZodError ? error.cause.flatten() : null,
+      },
+    };
+  },
+});
 
 // Export router and procedure helpers
 export const router = t.router;
 export const publicProcedure = t.procedure;
+
+// Protected procedure that requires authentication
+export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
+  if (!ctx.userId) {
+    throw new TRPCError({ code: 'UNAUTHORIZED' });
+  }
+  return next({
+    ctx: {
+      ...ctx,
+      userId: ctx.userId, // userId is now guaranteed to be defined
+    },
+  });
+});
 
 // Blog router
 const blogRouter = router({
@@ -213,8 +248,8 @@ const analyticsRouter = router({
     )
     .mutation(async ({ input }) => {
       try {
-        const eventId = `event_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        const sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const eventId = `event_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
+        const sessionId = `session_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
 
         const event = {
           id: eventId,
@@ -261,35 +296,47 @@ const analyticsRouter = router({
   }),
 });
 
+// Test router for Sentry error tracking
+const testRouter = router({
+  // Test server-side error reporting
+  serverError: publicProcedure.query(() => {
+    throw new Error('Test server-side error for Sentry integration');
+  }),
+
+  // Test client-side error with specific message
+  clientError: publicProcedure
+    .input(z.object({ message: z.string() }))
+    .mutation(({ input }) => {
+      throw new Error(`Test client error: ${input.message}`);
+    }),
+});
+
 // User preferences router
 const userRouter = router({
   // Get user preferences
-  getPreferences: publicProcedure
-    .input(z.object({ userId: z.string() }))
-    .query(async ({ input }) => {
-      try {
-        const prefsData = await redis.hgetall(
-          RedisKeys.userPreferences(input.userId),
-        );
-        if (!prefsData || Object.keys(prefsData).length === 0) {
-          return null;
-        }
-
-        return DataSerializers.deserializeFromRedis<UserPreferences>(
-          prefsData,
-          ['createdAt', 'updatedAt'],
-        );
-      } catch (error) {
-        console.error('Error fetching user preferences:', error);
+  getPreferences: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      const prefsData = await redis.hgetall(
+        RedisKeys.userPreferences(ctx.userId),
+      );
+      if (!prefsData || Object.keys(prefsData).length === 0) {
         return null;
       }
-    }),
+
+      return DataSerializers.deserializeFromRedis<UserPreferences>(prefsData, [
+        'createdAt',
+        'updatedAt',
+      ]);
+    } catch (error) {
+      console.error('Error fetching user preferences:', error);
+      return null;
+    }
+  }),
 
   // Update user preferences
-  updatePreferences: publicProcedure
+  updatePreferences: protectedProcedure
     .input(
       z.object({
-        userId: z.string(),
         preferences: z.object({
           theme: z.enum(['light', 'dark', 'system']).optional(),
           notifications: z.boolean().optional(),
@@ -299,14 +346,14 @@ const userRouter = router({
         }),
       }),
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       try {
         const existingData = await redis.hgetall(
-          RedisKeys.userPreferences(input.userId),
+          RedisKeys.userPreferences(ctx.userId),
         );
 
         const updatedPrefs: UserPreferences = {
-          userId: input.userId,
+          userId: ctx.userId,
           theme: input.preferences.theme || 'system',
           notifications: input.preferences.notifications ?? true,
           newsletter: input.preferences.newsletter ?? false,
@@ -320,7 +367,7 @@ const userRouter = router({
         };
 
         await redis.hset(
-          RedisKeys.userPreferences(input.userId),
+          RedisKeys.userPreferences(ctx.userId),
           DataSerializers.serializeForRedis(
             updatedPrefs as unknown as Record<string, unknown>,
           ),
@@ -350,6 +397,7 @@ export const appRouter = router({
   projects: projectsRouter,
   analytics: analyticsRouter,
   user: userRouter,
+  test: testRouter,
 
   // Health check
   health: publicProcedure.query(async () => {

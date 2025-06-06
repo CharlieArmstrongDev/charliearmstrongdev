@@ -15,6 +15,16 @@ const HomePage: React.FC = () => {
         <p className="mt-4 text-center text-lg">
           Showcasing my projects, blog, and more!
         </p>
+
+        {/* Temporary link for Sentry testing */}
+        <div className="mt-6 text-center">
+          <a
+            href="/test-error"
+            className="inline-block rounded-md bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700"
+          >
+            🧪 Test Sentry Integration
+          </a>
+        </div>
       </main>
       <Footer />
     </div>
