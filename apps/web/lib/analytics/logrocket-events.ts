@@ -13,7 +13,7 @@ export const trackPageView = (pagePath: string) => {
 export const trackUserInteraction = (
   action: string,
   element: string,
-  details?: Record<string, any>,
+  details?: Record<string, unknown>,
 ) => {
   trackLogRocketEvent('User Interaction', {
     action,
@@ -24,11 +24,11 @@ export const trackUserInteraction = (
 };
 
 // Track errors (for manual error tracking)
-export const trackError = (error: Error, context?: Record<string, any>) => {
+export const trackError = (error: Error, context?: Record<string, unknown>) => {
   trackLogRocketEvent('Error', {
     message: error.message,
-    stack: error.stack,
-    context,
+    stack: error.stack || 'No stack trace available',
+    ...(context && { context: JSON.stringify(context) }),
     timestamp: new Date().toISOString(),
   });
 };
@@ -50,7 +50,7 @@ export const trackPerformance = (
 // Track feature usage
 export const trackFeatureUsage = (
   feature: string,
-  details?: Record<string, any>,
+  details?: Record<string, unknown>,
 ) => {
   trackLogRocketEvent('Feature Usage', {
     feature,

@@ -63,7 +63,7 @@ export const identifyLogRocketUser = (user: {
   if (typeof window === 'undefined') return;
 
   const identityData: Record<string, string | number | boolean> = {};
-  
+
   if (user.email) {
     identityData.email = user.email;
   }

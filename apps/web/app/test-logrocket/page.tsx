@@ -21,7 +21,7 @@ export default function TestLogRocket() {
       setEventStatus(
         '✅ Event tracked successfully! Check console for details.',
       );
-      
+
       // Clear the status after 3 seconds
       setTimeout(() => setEventStatus(''), 3000);
     } catch (error) {
