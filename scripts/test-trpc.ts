@@ -44,6 +44,11 @@ async function testTRPCEndpoints() {
     const stats = await caller.analytics.getSiteStats();
     console.log("✅ Site statistics:", stats);
 
+    // Test monitoring
+    console.log("\n🔍 Testing monitoring endpoint...");
+    const redisHealth = await caller.monitoring.redis();
+    console.log("✅ Redis monitoring:", redisHealth);
+
     console.log("\n🎉 All tRPC endpoints are working correctly!");
     console.log("✅ Redis integration is fully functional!");
   } catch (error) {

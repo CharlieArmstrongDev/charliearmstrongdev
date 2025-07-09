@@ -22,6 +22,7 @@ This repository contains the code for charliearmstrongdev, built with Next.js, T
 ## Features
 
 - **Database**: Vercel KV (Upstash Redis) for user preferences, analytics, blog posts, and project data.
+- **Real-time Monitoring**: Comprehensive Redis monitoring dashboard with health checks and automated alerting.
 - **Responsive Design**: The website is designed to be fully responsive and accessible.
 - **Server Components**: Utilizes Next.js server components for improved performance.
 - **Static Site Generation (SSG)** and **Incremental Static Regeneration (ISR)**: For optimal performance and SEO.
@@ -29,6 +30,8 @@ This repository contains the code for charliearmstrongdev, built with Next.js, T
 - **Service Worker**: Implemented for offline capabilities.
 - **CI/CD**: Continuous integration and deployment workflows are set up using GitHub Actions.
 - **Optimized Dependencies**: Critical dependencies are version-pinned and overridden for security and performance.
+- **Error Tracking**: Sentry integration for comprehensive error monitoring and performance tracking.
+- **Session Replay**: LogRocket integration for user session analysis and debugging.
 
 ## Getting Started
 
@@ -77,11 +80,18 @@ Comprehensive documentation is available in the `docs` directory, covering:
 - [Domain Driven Design](docs/ddd.md)
 - [Edge Functions](docs/edge-functions.md)
 - [Performance Optimizations](docs/performance.md)
+- [Redis Monitoring Guide](docs/redis-monitoring.md) - 🆕 Complete monitoring dashboard documentation
 - [Rendering Strategies](docs/rendering-strategies.md)
 - [SEO and Sitemap Implementation](docs/seo-sitemap.md)
 - [Tech Stack](docs/tech-stack.md)
 - [Advanced TypeScript Usage](docs/typescript.md)
-- [Troubleshooting Guide](docs/troubleshooting.md)
+- [Troubleshooting Guide](docs/troubleshooting.md) - 🆕 Includes tRPC API routes troubleshooting
+
+### Recent Documentation Updates
+
+✅ **Redis Monitoring** - Real-time dashboard with health checks and automated alerting  
+✅ **tRPC Troubleshooting** - Solutions for Next.js 15 App Router API route issues  
+✅ **Monitoring Dashboard** - Access at `http://localhost:3000/monitoring/redis`
 
 ## Contributing
 

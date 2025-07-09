@@ -8,6 +8,7 @@ import {
   type Project,
   type UserPreferences,
 } from '../db/schema';
+import { checkRedisHealth } from '../monitoring/redis';
 
 // Context type for tRPC
 type Context = {
@@ -381,6 +382,13 @@ const userRouter = router({
     }),
 });
 
+// Monitoring router
+const monitoringRouter = router({
+  redis: publicProcedure.query(async () => {
+    return await checkRedisHealth();
+  }),
+});
+
 // Main app router
 export const appRouter = router({
   // Legacy hello endpoint for compatibility
@@ -398,20 +406,31 @@ export const appRouter = router({
   analytics: analyticsRouter,
   user: userRouter,
   test: testRouter,
+  monitoring: monitoringRouter,
 
-  // Health check
+  // Health check with Redis monitoring
   health: publicProcedure.query(async () => {
     try {
-      const redisHealth = await redis.ping();
+      const metrics = await checkRedisHealth();
       return {
         status: 'ok',
-        redis: redisHealth === 'PONG',
+        redis: {
+          connected: metrics.connectionStatus === 'connected',
+          responseTime: metrics.responseTime,
+          keyCount: metrics.keyCount,
+          errorRate: metrics.errorRate,
+        },
         timestamp: new Date().toISOString(),
       };
     } catch (error) {
       return {
         status: 'error',
-        redis: false,
+        redis: {
+          connected: false,
+          responseTime: -1,
+          keyCount: 0,
+          errorRate: 1.0,
+        },
         timestamp: new Date().toISOString(),
         error: error instanceof Error ? error.message : 'Unknown error',
       };

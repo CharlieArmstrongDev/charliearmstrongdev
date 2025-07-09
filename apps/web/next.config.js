@@ -22,14 +22,6 @@ const nextConfig = {
       },
     ];
   },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: '/api/trpc/:path*', // Proxy to the tRPC API
-      },
-    ];
-  },
 };
 
 module.exports = nextConfig;

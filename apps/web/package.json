@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "test": "jest",
     "cypress": "cypress open",
-    "seed": "tsx ../../scripts/seed-redis.ts"
+    "seed": "tsx ../../scripts/seed-redis.ts",
+    "monitor:redis": "tsx ../../scripts/redis-monitor.ts",
+    "monitor:redis:watch": "tsx watch ../../scripts/redis-monitor.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.0.0",

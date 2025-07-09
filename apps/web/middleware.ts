@@ -15,6 +15,7 @@ const isPublicRoute = createRouteMatcher([
   '/test-error', // Keep test error page accessible for Sentry testing
   '/api/sentry-debug', // Debug endpoint for Sentry configuration
   '/api/test-error', // Test error API endpoint for Sentry testing
+  '/api/trpc(.*)', // tRPC endpoints
 ]);
 
 export default clerkMiddleware((auth, req) => {

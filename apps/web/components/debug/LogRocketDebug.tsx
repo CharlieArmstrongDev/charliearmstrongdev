@@ -21,7 +21,7 @@ export default function LogRocketDebug() {
     const isInitialized =
       typeof window !== 'undefined' &&
       'LogRocket' in window &&
-      (window as { LogRocket?: unknown }).LogRocket !== undefined;
+      window.LogRocket !== undefined;
 
     setStatus({
       appId,
