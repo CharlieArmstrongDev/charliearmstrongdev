@@ -64,13 +64,11 @@ NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 ## 🚀 Next Steps
 
 1. **Test Authentication Flow**
-
    - Try signing up with a new account
    - Test sign-in with existing credentials
    - Verify user session persistence
 
 2. **Test Protected API Endpoints**
-
    - User preferences should require authentication
    - Test tRPC endpoints with and without auth
 

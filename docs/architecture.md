@@ -9,7 +9,6 @@ This document outlines the architecture of the charliearmstrongdev project, whic
 The project is organized into a monorepo structure using Turborepo, which allows for efficient management of multiple packages and applications. The main components of the project are as follows:
 
 - **Apps**: Contains the main web application.
-
   - **Web**: The primary application built with Next.js.
     - **App**: Contains the application routes and pages.
     - **Components**: Reusable UI components organized by domain and UI elements.
@@ -19,7 +18,6 @@ The project is organized into a monorepo structure using Turborepo, which allows
     - **Tests**: Unit and end-to-end tests for the application.
 
 - **Packages**: Contains shared configurations and components.
-
   - **ESLint Config**: Shared ESLint rules for consistent code quality.
   - **TypeScript Config**: Shared TypeScript settings for type safety.
   - **UI**: A library of reusable UI components.

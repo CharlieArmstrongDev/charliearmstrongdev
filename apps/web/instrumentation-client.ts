@@ -33,6 +33,33 @@ Sentry.init({
 
   beforeSend(event) {
     console.log('📤 Sentry client-side event:', event);
+
+    // Add LogRocket session URL to Sentry events
+    try {
+      // Dynamic import for LogRocket integration (only in browser)
+      if (typeof window !== 'undefined') {
+        import('./lib/logrocket')
+          .then(({ getLogRocketSessionURL }) => {
+            getLogRocketSessionURL()
+              .then((sessionURL: string) => {
+                if (event.extra) {
+                  event.extra.logRocketURL = sessionURL;
+                } else {
+                  event.extra = { logRocketURL: sessionURL };
+                }
+              })
+              .catch(() => {
+                // Silently fail if LogRocket is not available
+              });
+          })
+          .catch(() => {
+            // Silently fail if LogRocket module is not available
+          });
+      }
+    } catch {
+      // Silently fail if dynamic import is not supported
+    }
+
     return event;
   },
 });

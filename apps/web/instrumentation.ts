@@ -20,6 +20,7 @@ export async function register() {
 
       beforeSend(event) {
         console.log('📤 Sentry server-side event:', event);
+        // LogRocket integration is handled on client-side
         return event;
       },
 

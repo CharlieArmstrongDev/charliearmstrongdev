@@ -6,6 +6,7 @@ import Header from '../components/layout/header';
 import Footer from '../components/layout/footer';
 import '../styles/globals.css';
 import GoogleAnalytics from './GoogleAnalytics';
+import LogRocketInit from './LogRocketInit';
 
 export const metadata = {
   title: 'Charlie Armstrong - CharlieArmstrongDev',
@@ -53,6 +54,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <body>
           {/* Google Analytics */}
           <GoogleAnalytics />
+          {/* LogRocket Initialization */}
+          <LogRocketInit />
           <ErrorBoundary>
             <TRPCProvider>
               <div className="flex min-h-screen flex-col">
