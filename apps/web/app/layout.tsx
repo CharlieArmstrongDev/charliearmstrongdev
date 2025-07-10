@@ -7,6 +7,8 @@ import Footer from '../components/layout/footer';
 import '../styles/globals.css';
 import GoogleAnalytics from './GoogleAnalytics';
 import LogRocketInit from './LogRocketInit';
+import VercelAnalytics from './VercelAnalytics';
+import WebVitals from '../components/analytics/WebVitals';
 
 export const metadata = {
   title: 'Charlie Armstrong - CharlieArmstrongDev',
@@ -54,6 +56,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <body>
           {/* Google Analytics */}
           <GoogleAnalytics />
+          {/* Vercel Analytics */}
+          <VercelAnalytics />
+          {/* Web Vitals Tracking */}
+          <WebVitals />
           {/* LogRocket Initialization */}
           <LogRocketInit />
           <ErrorBoundary>
