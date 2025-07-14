@@ -110,6 +110,7 @@ The Redis monitoring system is fully integrated with the tRPC API infrastructure
 **Authentication:** Public (no authentication required)
 
 **Response Format:**
+
 ```json
 {
   "result": {

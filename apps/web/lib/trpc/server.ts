@@ -387,6 +387,51 @@ const monitoringRouter = router({
   redis: publicProcedure.query(async () => {
     return await checkRedisHealth();
   }),
+
+  webVitalsThresholds: publicProcedure.query(() => {
+    return {
+      LCP: { good: 2500, needsImprovement: 4000 },
+      FID: { good: 100, needsImprovement: 300 },
+      INP: { good: 200, needsImprovement: 500 },
+      CLS: { good: 0.1, needsImprovement: 0.25 },
+      FCP: { good: 1800, needsImprovement: 3000 },
+      TTFB: { good: 800, needsImprovement: 1800 },
+    };
+  }),
+
+  performanceReport: publicProcedure
+    .input(
+      z.object({
+        metric: z.enum(['LCP', 'FID', 'INP', 'CLS', 'FCP', 'TTFB']),
+        value: z.number(),
+        rating: z.enum(['good', 'needs-improvement', 'poor']),
+        page: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      // Log performance metrics for analysis
+      console.log('Performance Report:', input);
+
+      // Track poor performance alerts
+      if (input.rating === 'poor') {
+        Sentry.captureMessage(`Poor ${input.metric} performance detected`, {
+          level: 'warning',
+          tags: {
+            component: 'web-vitals',
+            metric: input.metric,
+            page: input.page,
+          },
+          extra: {
+            metric_value: input.value,
+            rating: input.rating,
+            page: input.page,
+            timestamp: new Date().toISOString(),
+          },
+        });
+      }
+
+      return { success: true, timestamp: new Date() };
+    }),
 });
 
 // Main app router

@@ -353,6 +353,7 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
 ✅ **Modern Endpoint**: Uses current `/_vercel/insights/*` API endpoints
 
 **Production Verification:** ✅ TESTED AND WORKING
+
 - Analytics requests confirmed in browser DevTools at `/_vercel/insights/event`
 - Page count increases visible in Vercel Analytics dashboard
 - Custom event tracking functional in production environment
@@ -360,6 +361,7 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
 **Dashboard Access:** https://vercel.com/dashboard → Project → Analytics
 
 **Available Custom Events:**
+
 - Page views, project views, blog post views
 - Contact form submissions, file downloads
 - External link clicks, search queries
@@ -398,6 +400,7 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
 **Step-by-Step Setup Guide:**
 
 **Step 1: Create Google Analytics 4 Property**
+
 1. Go to [Google Analytics](https://analytics.google.com/)
 2. Click "Start measuring" or "Create Property"
 3. Enter your website details:
@@ -411,7 +414,9 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
 6. Copy your **Measurement ID** (starts with `G-`)
 
 **Step 2: Configure Environment Variables**
+
 1. **Local Development:**
+
    ```bash
    # Add to apps/web/.env.local
    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=G-XXXXXXXXXX
@@ -423,6 +428,7 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
    - Deploy to apply changes
 
 **Step 3: Test Implementation**
+
 1. **Local Testing:**
    - Restart your development server: `pnpm dev`
    - Visit: `http://localhost:3000/test-google-analytics`
@@ -435,6 +441,7 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
    - Test events and verify in GA4 real-time reports
 
 **Step 4: Verify in Google Analytics**
+
 1. **Real-time Reports:**
    - GA4 Dashboard → Reports → Realtime
    - Should see active users and events
@@ -448,6 +455,7 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
    - Create custom dimensions for `custom_parameter_1` and `custom_parameter_2`
 
 **Step 5: Enhanced Configuration (Optional)**
+
 1. **Enhanced Ecommerce:** Configure if selling products/services
 2. **Conversion Events:** Mark important events as conversions
 3. **Audience Segments:** Create user segments for better insights
@@ -464,6 +472,7 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
 ✅ **Production Ready**: Works in both development and production environments
 
 **Available Custom Events:**
+
 - `blog_view` - Blog post views with post title and slug
 - `project_view` - Project page views with project name and type
 - `contact_form_submit` - Contact form submissions with form type
@@ -475,32 +484,86 @@ _CharlieArmstrongDev Project - External Infrastructure & Services Setup_
 - `performance_metric` - Performance metrics with values and units
 
 **Custom Parameters:**
+
 - `custom_parameter_1` - Page/content type (blog_post, project, etc.)
 - `custom_parameter_2` - Sub-category or user type
 - Additional parameters for specific tracking needs
 
 **Dashboard URLs:**
+
 - **Real-time Reports:** https://analytics.google.com/analytics/web/#/realtime
 - **Events:** https://analytics.google.com/analytics/web/#/analysis
 - **Custom Definitions:** https://analytics.google.com/analytics/web/#/admin/custom-definitions
 
-### 3.3 Core Web Vitals Monitoring ❌
+### 3.3 Core Web Vitals Monitoring ✅
 
-**Priority: Medium** | **Estimated Time: 1 hour**
+**Priority: Medium** | **Estimated Time: 1 hour** | **Status: COMPLETED**
 
 **Tasks:**
 
-- [ ] Configure Web Vitals tracking
-- [ ] Set up performance alerts for:
-  - LCP > 2.5s
-  - FID > 100ms
-  - CLS > 0.1
-- [ ] Integrate with Vercel Analytics
-- [ ] Create performance dashboard
+- [x] Configure Web Vitals tracking ✅
+- [x] Set up performance alerts for:
+  - LCP > 2.5s ✅
+  - FID > 100ms ✅
+  - CLS > 0.1 ✅
+  - INP > 200ms ✅
+  - FCP > 1.8s ✅
+  - TTFB > 800ms ✅
+- [x] Integrate with Vercel Analytics ✅
+- [x] Create performance dashboard ✅
+- [x] Implement performance alerts with Sentry integration ✅
+- [x] Add real-time Web Vitals collection ✅
+- [x] Create performance testing utilities ✅
 
-**Files to Create:**
+**Files Created:**
 
-- `apps/web/lib/web-vitals.ts` - Web Vitals tracking utilities
+- `apps/web/lib/web-vitals.ts` - Web Vitals tracking utilities ✅
+- `apps/web/components/monitoring/PerformanceDashboard.tsx` - Performance dashboard ✅
+- `apps/web/app/monitoring/performance/page.tsx` - Performance monitoring page ✅
+- `apps/web/components/analytics/WebVitals.tsx` - Web Vitals component ✅
+- `apps/web/lib/monitoring/performance-alerts.ts` - Performance alerting system ✅
+- `apps/web/app/test-performance/page.tsx` - Performance testing page ✅
+
+**Implementation Notes:**
+
+✅ **Real-time Tracking**: Web Vitals collected automatically on page load and interaction
+✅ **Performance Dashboard**: Live dashboard showing Core Web Vitals and additional metrics
+✅ **Comprehensive Alerts**: Automated alerts for poor performance with rate limiting
+✅ **Multi-platform Integration**: Tracks to Google Analytics, Vercel Analytics, and Sentry
+✅ **Performance Classification**: Good/Needs Improvement/Poor ratings based on industry standards
+✅ **Testing Infrastructure**: Complete test page for validating alerts and metrics
+✅ **Development Debugging**: Console logging for Web Vitals in development mode
+
+**Alert Thresholds:**
+
+- **LCP (Largest Contentful Paint)**: Good <2.5s, Warning <4s, Critical >4s
+- **FID (First Input Delay)**: Good <100ms, Warning <300ms, Critical >300ms  
+- **INP (Interaction to Next Paint)**: Good <200ms, Warning <500ms, Critical >500ms
+- **CLS (Cumulative Layout Shift)**: Good <0.1, Warning <0.25, Critical >0.25
+- **FCP (First Contentful Paint)**: Good <1.8s, Warning <3s, Critical >3s
+- **TTFB (Time to First Byte)**: Good <800ms, Warning <1.8s, Critical >1.8s
+
+**Dashboard Access:** http://localhost:3000/monitoring/performance
+
+**Testing Access:** http://localhost:3000/test-performance
+
+**Monitoring Features:**
+
+✅ **Real-time Metrics**: Live collection of Core Web Vitals and additional performance metrics
+✅ **Visual Indicators**: Color-coded performance ratings with emoji indicators
+✅ **Page Load Analysis**: Detailed timing breakdown (DNS, TCP, TTFB, download, DOM ready)
+✅ **Resource Performance**: Analysis of slow-loading resources (>1s)
+✅ **Performance Alerts**: Automated alerts sent to Sentry for poor performance
+✅ **Rate Limiting**: Alert cooldown periods to prevent spam (5-minute intervals)
+✅ **Multi-platform Tracking**: Integration with Google Analytics and Vercel Analytics
+
+**Performance Optimization Recommendations:**
+
+- Monitor LCP by optimizing largest content elements (images, text blocks)
+- Reduce FID/INP by minimizing JavaScript execution time
+- Minimize CLS by setting dimensions for images and avoiding dynamic content insertion
+- Improve FCP by optimizing above-the-fold content loading
+- Optimize TTFB through CDN usage and server response optimization
 
 ---
 

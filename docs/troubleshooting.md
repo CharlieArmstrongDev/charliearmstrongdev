@@ -121,6 +121,7 @@ Use PNPM overrides in your root `package.json`:
 **Status:** ✅ **RESOLVED** - tRPC endpoints are now fully operational at `/api/trpc/*`
 
 **Resolution Summary:**
+
 - Fixed catch-all route pattern: `[...trpc]` instead of `[trpc]`
 - Added tRPC endpoints to public routes in middleware
 - Removed problematic API rewrites from next.config.js

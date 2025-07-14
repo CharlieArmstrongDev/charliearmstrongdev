@@ -85,6 +85,9 @@ importers:
       vercel:
         specifier: ^39.1.0
         version: 39.4.2(rollup@4.35.0)
+      web-vitals:
+        specifier: ^5.0.3
+        version: 5.0.3
       zod:
         specifier: ^3.23.8
         version: 3.25.32
@@ -4602,6 +4605,9 @@ packages:
 
   web-vitals@0.2.4:
     resolution: {integrity: sha512-6BjspCO9VriYy12z356nL6JBS0GYeEcA457YyRzD+dD6XYCQ75NKhcOHUMHentOE7OcVCIXXDvOm0jKFfQG2Gg==}
+
+  web-vitals@5.0.3:
+    resolution: {integrity: sha512-4KmOFYxj7qT6RAdCH0SWwq8eKeXNhAFXR4PmgF6nrWFmrJ41n7lq3UCA6UK0GebQ4uu+XP8e8zGjaDO3wZlqTg==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -9834,6 +9840,8 @@ snapshots:
       graceful-fs: 4.2.11
 
   web-vitals@0.2.4: {}
+
+  web-vitals@5.0.3: {}
 
   webidl-conversions@3.0.1: {}
 

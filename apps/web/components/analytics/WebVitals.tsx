@@ -1,20 +1,25 @@
 'use client';
 
 import { useReportWebVitals } from 'next/web-vitals';
-import { trackEvent } from '../../lib/analytics/vercel-analytics';
+import { trackWebVital } from '../../lib/web-vitals';
 
 export default function WebVitals() {
   useReportWebVitals(metric => {
-    // Track Core Web Vitals to Vercel Analytics
-    trackEvent('Web Vital', {
-      metric: metric.name,
-      value: Math.round(metric.value),
-      rating: metric.rating,
-    });
+    // Use our enhanced tracking function
+    trackWebVital(metric);
 
-    // Optional: Log to console in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log('Web Vital:', metric);
+    // Dispatch custom event for dashboard
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('web-vital', {
+          detail: {
+            name: metric.name,
+            value: Math.round(metric.value),
+            rating: metric.rating,
+            id: metric.id,
+          },
+        }),
+      );
     }
   });
 
