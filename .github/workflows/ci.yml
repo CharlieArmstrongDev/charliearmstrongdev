@@ -73,7 +73,7 @@ jobs:
         run: pnpm build
         env:
           # Build environment variables with secrets
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_b3B0aW11bS1yb29zdGVyLTc3LmNsZXJrLmFjY291bnRzLmRldiQ
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: charliearmstrongdev
           SENTRY_PROJECT: charliearmstrongdev
