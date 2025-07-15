@@ -41,7 +41,7 @@ export function createPerformanceAlert(
     value,
     threshold: rating === 'poor' ? thresholds.critical : thresholds.warning,
     severity,
-    message: `${metric} performance ${severity}: ${value}${metric === 'CLS' ? '' : 'ms'} (${rating})`,
+    message: `Performance Alert: ${metric} performance ${severity} - ${value}${metric === 'CLS' ? '' : 'ms'} (${rating})`,
     timestamp: new Date(),
   };
 }
@@ -55,7 +55,9 @@ export async function sendPerformanceAlert(
   console.warn(`${emoji} Performance Alert:`, alert.message);
 
   // Send to Sentry
-  Sentry.captureMessage(alert.message, {
+  const alertMessage = `Performance Alert: ${alert.metric} performance ${alert.severity} - ${alert.value}${alert.metric === 'CLS' ? '' : 'ms'}`;
+
+  Sentry.captureMessage(alertMessage, {
     level: alert.severity === 'critical' ? 'error' : 'warning',
     tags: {
       component: 'web-vitals',

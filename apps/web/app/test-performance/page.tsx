@@ -54,9 +54,9 @@ export default function TestPerformancePage() {
       // Report each metric
       testMetrics.forEach(({ metric, value, rating }) => {
         performanceReportMutation.mutate({
-          metric: metric as any,
+          metric: metric as 'LCP' | 'FID' | 'INP' | 'CLS' | 'FCP' | 'TTFB',
           value,
-          rating: rating as any,
+          rating: rating as 'good' | 'needs-improvement' | 'poor',
           page: '/test-performance',
         });
       });
@@ -160,6 +160,29 @@ Time: ${new Date().toLocaleTimeString()}
     );
   };
 
+  const simulateNeedsImprovementMetrics = () => {
+    // Simulate metrics that need improvement (not good, not poor)
+    const slowButNotPoorLCP = 3200; // Between 2.5s (good) and 4s (poor)
+    const slowButNotPoorFID = 200; // Between 100ms (good) and 300ms (poor)
+    const mediumCLS = 0.18; // Between 0.1 (good) and 0.25 (poor)
+
+    trackPerformance('LCP', slowButNotPoorLCP);
+    trackPerformance('FID', slowButNotPoorFID);
+    trackPerformance('CLS', mediumCLS);
+
+    console.log('🟡 Simulated needs improvement metrics:', {
+      LCP: slowButNotPoorLCP,
+      FID: slowButNotPoorFID,
+      CLS: mediumCLS,
+    });
+
+    setTestResults(
+      prev =>
+        prev +
+        `\n🟡 Simulated needs improvement LCP: ${slowButNotPoorLCP}ms\n🟡 Simulated needs improvement FID: ${slowButNotPoorFID}ms\n🟡 Simulated needs improvement CLS: ${mediumCLS}`,
+    );
+  };
+
   const clearResults = () => {
     setTestResults('');
   };
@@ -187,6 +210,48 @@ Time: ${new Date().toLocaleTimeString()}
         return '🔴';
       default:
         return '⚪';
+    }
+  };
+
+  const testSentryDirectly = async () => {
+    try {
+      const Sentry = await import('@sentry/nextjs');
+
+      // Test critical alert
+      Sentry.captureMessage(
+        'Performance Alert: LCP performance critical - 4500ms',
+        {
+          level: 'error',
+          tags: {
+            test: 'manual',
+            component: 'test-performance',
+          },
+        },
+      );
+
+      // Test warning alert
+      Sentry.captureMessage(
+        'Performance Alert: FID performance warning - 250ms',
+        {
+          level: 'warning',
+          tags: {
+            test: 'manual',
+            component: 'test-performance',
+          },
+        },
+      );
+
+      console.log('🧪 Direct Sentry test messages sent');
+      setTestResults(
+        prev =>
+          prev +
+          '\n🧪 Direct Sentry test messages sent - check Sentry dashboard',
+      );
+    } catch (error) {
+      console.error('❌ Sentry test failed:', error);
+      setTestResults(
+        prev => prev + '\n❌ Sentry test failed: ' + (error as Error).message,
+      );
     }
   };
 
@@ -226,6 +291,12 @@ Time: ${new Date().toLocaleTimeString()}
             >
               🟢 Simulate Good Metrics
             </button>
+            <button
+              onClick={simulateNeedsImprovementMetrics}
+              className="rounded-lg bg-yellow-600 px-4 py-3 text-white transition-colors hover:bg-yellow-700"
+            >
+              🟡 Simulate Needs Improvement
+            </button>
           </div>
 
           <div className="mb-4 grid gap-4 md:grid-cols-2">
@@ -235,6 +306,15 @@ Time: ${new Date().toLocaleTimeString()}
             >
               Run Real Performance Test
             </button>
+            <button
+              onClick={testSentryDirectly}
+              className="rounded-lg bg-purple-600 px-4 py-3 text-white transition-colors hover:bg-purple-700"
+            >
+              🧪 Test Sentry Directly
+            </button>
+          </div>
+
+          <div className="mb-4 grid gap-4 md:grid-cols-2">
             <button
               onClick={clearResults}
               className="rounded-lg bg-gray-600 px-4 py-3 text-white transition-colors hover:bg-gray-700"

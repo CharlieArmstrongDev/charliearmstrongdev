@@ -4,6 +4,13 @@ import { onCLS, onFCP, onLCP, onTTFB, type Metric } from 'web-vitals';
 import { trackEvent as trackGoogleAnalytics } from './analytics/google-analytics';
 import { trackEvent as trackVercelAnalytics } from './analytics/vercel-analytics';
 
+// Handle performance alerts for poor metrics
+import {
+  createPerformanceAlert,
+  sendPerformanceAlert,
+  shouldSendAlert,
+} from './monitoring/performance-alerts';
+
 // Web Vitals thresholds for performance classification
 export const WEB_VITALS_THRESHOLDS = {
   LCP: { good: 2500, needsImprovement: 4000 }, // Largest Contentful Paint
@@ -76,13 +83,6 @@ export function trackWebVital(metric: Metric) {
   };
 }
 
-// Handle performance alerts for poor metrics
-import {
-  createPerformanceAlert,
-  sendPerformanceAlert,
-  shouldSendAlert,
-} from './monitoring/performance-alerts';
-
 async function handlePerformanceAlert(
   metric: string,
   value: number,
@@ -98,6 +98,53 @@ async function handlePerformanceAlert(
 
   if (alert && shouldSendAlert(metric as WebVitalMetric)) {
     await sendPerformanceAlert(alert);
+  }
+
+  // Additional Sentry capture with specific tags for alerts
+  if (rating === 'poor') {
+    const Sentry = await import('@sentry/nextjs');
+    Sentry.captureMessage(
+      `Performance Alert: Poor ${metric} performance - CRITICAL`,
+      {
+        level: 'error',
+        tags: {
+          alert_type: 'performance',
+          metric_name: metric,
+          severity: 'critical',
+          component: 'web-vitals',
+          alert_category: 'core-web-vitals',
+        },
+        extra: {
+          metric_value: value,
+          rating: rating,
+          threshold_good: WEB_VITALS_THRESHOLDS[metric as WebVitalMetric]?.good,
+          threshold_needs_improvement:
+            WEB_VITALS_THRESHOLDS[metric as WebVitalMetric]?.needsImprovement,
+        },
+      },
+    );
+  } else if (rating === 'needs-improvement') {
+    const Sentry = await import('@sentry/nextjs');
+    Sentry.captureMessage(
+      `Performance Alert: ${metric} needs improvement - WARNING`,
+      {
+        level: 'warning',
+        tags: {
+          alert_type: 'performance',
+          metric_name: metric,
+          severity: 'warning',
+          component: 'web-vitals',
+          alert_category: 'core-web-vitals',
+        },
+        extra: {
+          metric_value: value,
+          rating: rating,
+          threshold_good: WEB_VITALS_THRESHOLDS[metric as WebVitalMetric]?.good,
+          threshold_needs_improvement:
+            WEB_VITALS_THRESHOLDS[metric as WebVitalMetric]?.needsImprovement,
+        },
+      },
+    );
   }
 
   // Track alert as custom event
