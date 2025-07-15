@@ -71,6 +71,15 @@ jobs:
 
       - name: Build the application
         run: pnpm build
+        env:
+          # Build environment variables with secrets
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_b3B0aW11bS1yb29zdGVyLTc3LmNsZXJrLmFjY291bnRzLmRldiQ
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: charliearmstrongdev
+          SENTRY_PROJECT: charliearmstrongdev
+          NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.GA_TRACKING_ID }}
+          NEXT_PUBLIC_LOGROCKET_APP_ID: ${{ secrets.NEXT_PUBLIC_LOGROCKET_APP_ID }}
+          LOGROCKET_RELEASE_VERSION: ${{ secrets.LOGROCKET_RELEASE_VERSION }}
 
   deploy:
     runs-on: ubuntu-latest
