@@ -119,7 +119,8 @@ jobs:
         run: npm install -g vercel
 
       - name: Deploy to Vercel
-        run: vercel ./apps/web --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
+        working-directory: ./apps/web
+        run: vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
