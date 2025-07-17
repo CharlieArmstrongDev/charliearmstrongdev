@@ -8,7 +8,8 @@
     "react-library.json"
   ],
   "scripts": {
-    "build": "echo 'TypeScript config package - no build needed'"
+    "build": "echo 'TypeScript config package - no build needed'",
+    "test": "echo 'No tests needed for tsconfig package'"
   },
   "devDependencies": {
     "typescript": "^5.7.3"
