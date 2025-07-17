@@ -120,8 +120,7 @@ jobs:
 
       - name: Deploy to Vercel
         working-directory: ./apps/web
-        run: vercel --prod --yes
+        run: vercel --prod --yes --token ${{ secrets.VERCEL_TOKEN }}
         env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
