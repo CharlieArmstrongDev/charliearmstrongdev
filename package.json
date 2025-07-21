@@ -19,7 +19,11 @@
     "seed:reset": "tsx scripts/seed-redis.ts reset"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "babel-jest": "^29.7.0",
     "esbuild": "^0.25.5",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
     "prettier": "latest",
     "turbo": "latest",
     "undici": "^7.10.0"
