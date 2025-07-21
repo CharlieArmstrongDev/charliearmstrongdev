@@ -1,5 +1,0 @@
-{
-  "framework": "nextjs",
-  "buildCommand": "echo 'Build already completed in CI'",
-  "outputDirectory": ".next"
-}
