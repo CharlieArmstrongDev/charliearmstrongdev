@@ -23,7 +23,7 @@
     "babel-jest": "^29.7.0",
     "esbuild": "^0.25.5",
     "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "jest-environment-jsdom": "^30.0.4",
     "prettier": "latest",
     "turbo": "latest",
     "undici": "^7.10.0"
